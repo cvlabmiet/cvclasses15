@@ -27,13 +27,14 @@ void LaplacianEdgeDetector::Show(const cv::String& imgPath)
 {
 	/// Load an image
 	m_param.srcImage = cv::imread(imgPath);
+	//resize(m_param.srcImage, m_param.srcImage, cv::Size(), 0.5, 0.5, cv::INTER_LINEAR);
 	if (!m_param.srcImage.data)
 	{
 		return;
 	}
 
 	/// Create window with original image
-	cv::namedWindow(imgPath, CV_WINDOW_AUTOSIZE);
+	cv::namedWindow(imgPath, CV_WINDOW_NORMAL);
 	cv::imshow(imgPath, m_param.srcImage);
 
 	/// Create DEMO window
