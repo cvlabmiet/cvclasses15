@@ -6,12 +6,11 @@
 #include "stdafx.h"
 
 #include "LaplacianEdgeDetector.h"
-#include <iostream>
+
 ///@brief Entry point
-int main(int argc, char** argv )
+int _tmain(int argc, char** argv )
 {
 	LaplacianEdgeDetector laplacianDemo;
-
 	laplacianDemo.Show(cv::String(argv[1]));
 	return 0;
 }
