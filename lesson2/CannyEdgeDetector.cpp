@@ -1,10 +1,14 @@
+///@File: CannyEdgeDetector.h
+///@Brief: Contains implementation of CannyEdgeDetector class
+///@Author: Svetlana Kuksova
+///@Date: 21 September 2015
+
 #include "stdafx.h"
 
 #include "CannyEdgeDetector.h"
 
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
-
 
 ///////////////////////////////////////////////////////////////////////////////
 CannyEdgeDetector::CannyEdgeDetector()
@@ -38,8 +42,6 @@ void CannyEdgeDetector::applyFilter(int pos, void* data)
 	cv::Mat abs_dst;
 	convertScaleAbs(detected_edges, abs_dst);
 	cv::imshow(userData.windowName, abs_dst);
-
-
 }
 ///////////////////////////////////////////////////////////////////////////////
 void CannyEdgeDetector::Show(const cv::String& imgPath)
@@ -66,6 +68,3 @@ void CannyEdgeDetector::Show(const cv::String& imgPath)
 
 	cv::waitKey(0);
 }
-
-
-
