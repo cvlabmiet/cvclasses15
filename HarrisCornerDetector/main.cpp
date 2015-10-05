@@ -10,6 +10,7 @@
 int _tmain(int argc, char** argv)
 {
 	HarrisCornerDetector harrisDemo;
-	harrisDemo.Show(cv::String(argv[1]));
+//	harrisDemo.Show(cv::String(argv[1]));
+	harrisDemo.Show("lena.tif");
 	return 0;
 }

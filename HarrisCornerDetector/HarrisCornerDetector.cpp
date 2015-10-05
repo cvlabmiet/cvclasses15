@@ -62,10 +62,12 @@ void HarrisCornerDetector::detectFeatures(int pos, void* data)
 	cv::Mat weightMatrix;
 	if (userData.gaussianSigma == 0)
 	{
+		// Use weighted average window
 		weightMatrix = cv::Mat::ones(userData.windowSize, userData.windowSize, CV_32FC1) / userData.windowSize / userData.windowSize;
 	}
 	else
 	{
+		// Use gaussian window
 		cv::Mat gaussianKernel = cv::getGaussianKernel(userData.windowSize, userData.gaussianSigma, CV_32FC1);
 		cv::mulTransposed(gaussianKernel, weightMatrix, false);
 	}
@@ -77,8 +79,6 @@ void HarrisCornerDetector::detectFeatures(int pos, void* data)
 	// Remove noise by blurring with a Gaussian filter
 	cv::Mat bluredImg;
 	cv::GaussianBlur(gray, bluredImg, cv::Size(3, 3), 1);
-	cv::imshow("", bluredImg);
-	cv::waitKey(0);
 
 	// Filtering blured image with Sobel masks
 	cv::Mat IxxMat, IxyMat, IyyMat;
