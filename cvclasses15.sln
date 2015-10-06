@@ -5,9 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson1", "lesson1\lesson1.vcxproj", "{82EABB10-C81E-4F60-94F4-1CAADD360388}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson2", "lesson2\lesson2.vcxproj", "{15EAA538-C389-40AC-B462-607484EC22B3}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HarrisCornerDetector", "HarrisCornerDetector\HarrisCornerDetector.vcxproj", "{8D088730-E07F-4B6A-8763-80689CEE7474}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson2", "HarrisCornerDetector\HarrisCornerDetector.vcxproj", "{8D088730-E07F-4B6A-8763-80689CEE7474}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +21,6 @@ Global
 		{82EABB10-C81E-4F60-94F4-1CAADD360388}.Release|Win32.ActiveCfg = Release|Win32
 		{82EABB10-C81E-4F60-94F4-1CAADD360388}.Release|Win32.Build.0 = Release|Win32
 		{82EABB10-C81E-4F60-94F4-1CAADD360388}.Release|x64.ActiveCfg = Release|Win32
-		{15EAA538-C389-40AC-B462-607484EC22B3}.Debug|Win32.ActiveCfg = Debug|Win32
-		{15EAA538-C389-40AC-B462-607484EC22B3}.Debug|Win32.Build.0 = Debug|Win32
-		{15EAA538-C389-40AC-B462-607484EC22B3}.Debug|x64.ActiveCfg = Debug|Win32
-		{15EAA538-C389-40AC-B462-607484EC22B3}.Release|Win32.ActiveCfg = Release|Win32
-		{15EAA538-C389-40AC-B462-607484EC22B3}.Release|Win32.Build.0 = Release|Win32
-		{15EAA538-C389-40AC-B462-607484EC22B3}.Release|x64.ActiveCfg = Release|Win32
 		{8D088730-E07F-4B6A-8763-80689CEE7474}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8D088730-E07F-4B6A-8763-80689CEE7474}.Debug|Win32.Build.0 = Debug|Win32
 		{8D088730-E07F-4B6A-8763-80689CEE7474}.Debug|x64.ActiveCfg = Debug|x64
