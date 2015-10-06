@@ -12,8 +12,7 @@ int _tmain(int argc, char** argv)
 {
    CannyEdgeDetector cannyDemo;
    HarrisCornerDetector harrisDemo;
-//   harrisDemo.Show(cv::String(argv[1]));
-   harrisDemo.Show("lena.tif");
-//   cannyDemo.Show("lena.tif");
+   harrisDemo.Show(cv::String(argv[1]));
+//   cannyDemo.Show(cv::String(argv[1]));
    return 0;
 }
