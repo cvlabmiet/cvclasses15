@@ -1,7 +1,7 @@
 ///@File: main.cpp
 ///@Brief: Contains implementation of entry point of the application
-///@Author: Stepan Sidorov
-///@Date: 06 October 2015
+///@Author: Svetlana Kuksova
+///@Date: 21 September 2015
 
 #include "stdafx.h"
 
