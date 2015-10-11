@@ -38,5 +38,11 @@
     <ClInclude Include="SegmentMotionGMM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ISegmentMotion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SegmentMotionFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

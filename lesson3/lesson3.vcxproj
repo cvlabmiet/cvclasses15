@@ -13,7 +13,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{305A218C-EACE-4C92-8C8A-0438141560C1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SegmentMotion</RootNamespace>
+    <RootNamespace>lesson3</RootNamespace>
+    <ProjectName>lesson3</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -52,13 +53,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(OPENCV_DIR)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opencv_world300d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)x86\vc12\lib;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x86\vc12\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,8 +89,10 @@
     <ClCompile Include="SegmentMotionGMM.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ISegmentMotion.h" />
     <ClInclude Include="SegmentMotionBU.h" />
     <ClInclude Include="SegmentMotionDiff.h" />
+    <ClInclude Include="SegmentMotionFactory.h" />
     <ClInclude Include="SegmentMotionGMM.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

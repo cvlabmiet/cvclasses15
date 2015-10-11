@@ -7,7 +7,7 @@
 #include <iostream>
 
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBU::run()
+void SegmentMotionBU::Run()
 {
     cv::VideoCapture capture(0);
     capture >> m_prevBackground;
@@ -35,6 +35,18 @@ void SegmentMotionBU::run()
         std::cerr << "Can not open the camera !" << std::endl;
         exit(-1);
     }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+void SegmentMotionBU::apply(cv::Mat& currentFrame, cv::Mat& foreground)
+{
+    cvtColor(currentFrame, currentFrame, CV_RGB2GRAY);
+    updateBackground(currentFrame);
+
+    cv::Mat absDif = abs(m_background - currentFrame.clone());
+    cv::threshold(absDif, absDif, m_params.threshold, 255, CV_THRESH_BINARY);
+    foreground = absDif;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -68,17 +80,6 @@ void SegmentMotionBU::updateBackground(cv::Mat& currentFrame)
     floatBackground.convertTo(m_background, CV_8U);
 
     m_background.copyTo(m_prevBackground);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBU::apply(cv::Mat& currentFrame, cv::Mat& foreground)
-{
-    cvtColor(currentFrame, currentFrame, CV_RGB2GRAY);
-    updateBackground(currentFrame);
-
-    cv::Mat absDif = abs(m_background - currentFrame.clone());
-    cv::threshold(absDif, absDif, m_params.threshold, 255, CV_THRESH_BINARY);
-    foreground = absDif;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

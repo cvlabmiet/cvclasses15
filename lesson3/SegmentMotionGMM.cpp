@@ -4,14 +4,13 @@
 ///@Author: Vitaliy Baldeev
 ///@Date: 04 October 2015
 
+#include <iostream>
 #include "SegmentMotionGMM.h"
 #include "opencv2\videoio\videoio.hpp"
 #include "opencv2\highgui.hpp"
 
-#include <iostream>
-
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionGMM::run()
+void SegmentMotionGMM::Run()
 {
     cv::VideoCapture capture(0);
 

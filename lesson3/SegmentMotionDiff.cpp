@@ -6,7 +6,7 @@
 #include "SegmentMotionDiff.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionDiff::run()
+void SegmentMotionDiff::Run()
 {
     cv::VideoCapture capture(0);
 
@@ -36,6 +36,16 @@ void SegmentMotionDiff::run()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+void SegmentMotionDiff::apply(const cv::Mat& currentFrame, cv::Mat& foreground)
+{
+    cv::Mat grayCurrentFrame;
+    cv::cvtColor(currentFrame, grayCurrentFrame, CV_RGB2GRAY);
+
+    foreground = abs(m_background - grayCurrentFrame);
+    cv::threshold(foreground, foreground, m_threshold, 255, CV_THRESH_BINARY);
+}
+
+///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionDiff::createGUI()
 {
     std::string winName = "SegmentMotionDiff";
@@ -51,16 +61,6 @@ void SegmentMotionDiff::getBackground(cv::VideoCapture& capture)
 {
     capture >> m_background;
     cv::cvtColor(m_background, m_background, CV_RGB2GRAY);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionDiff::apply(const cv::Mat& currentFrame, cv::Mat& foreground)
-{
-    cv::Mat grayCurrentFrame;
-    cv::cvtColor(currentFrame, grayCurrentFrame, CV_RGB2GRAY);
-
-    foreground = abs(m_background - grayCurrentFrame);
-    cv::threshold(foreground, foreground, m_threshold, 255, CV_THRESH_BINARY);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
