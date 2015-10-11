@@ -1,3 +1,9 @@
+///@File: main.cpp
+///@Brief: Contains interface of console application for testing background
+///        subtraction algorithms
+///@Author: Vitaliy Baldeev
+///@Date: 01 October 2015
+
 #include <iostream>
 #include <memory>
 
