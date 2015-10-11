@@ -1,4 +1,4 @@
-///@File: ISegmentMotion.h
+///@File: SegmentMotionFactory.h
 ///@Brief: Contains implementation factory for SegmentMotion classes
 ///@Author: Vitaliy Baldeev
 ///@Date: 10 October 2015
