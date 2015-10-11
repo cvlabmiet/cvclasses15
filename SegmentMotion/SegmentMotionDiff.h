@@ -5,18 +5,23 @@
 
 #pragma once
 
+#include <iostream>
+#include "ISegmentMotion.h"
+#include "SegmentMotionFactory.h"
 #include "opencv2\videoio.hpp"
 #include "opencv2\core\mat.hpp"
 #include "opencv2\imgproc.hpp"
 #include "opencv2\highgui.hpp"
-#include <iostream>
 
-class SegmentMotionDiff
+///@class SegmentMotionDiff
+/// Demonstrates the algorithm of simplest background subtraction with
+/// no background updating
+class SegmentMotionDiff : public ISegmentMotion
 {
 public:
 
     ///@brief Launch demostration
-    void SegmentMotionDiff::run();
+    void Run();
 
 private:
 
@@ -39,3 +44,15 @@ private:
     cv::Mat m_currentFrame;     ///< current image from camera
     cv::Mat m_foreground;       ///< binary image with moving objects
 };
+
+namespace
+{
+    ///@brief Create the instance of SegmentMotionDiff
+    ISegmentMotion* CreateSegmentMotionDiff()
+    {
+        return new SegmentMotionDiff;
+    }
+
+    const bool diffRegistered =
+        SegmentMotionFactory::Instance().RegisterAlgorithm("Diff", CreateSegmentMotionDiff);  ///< registration in SegmentMotionFactory
+}

@@ -5,15 +5,20 @@
 ///@Date: 04 October 2015
 
 #pragma once
+
+#include "SegmentMotionFactory.h"
 #include "opencv2\core\mat.hpp"
 #include "opencv2\video\background_segm.hpp"
 
-class SegmentMotionGMM
+
+///@class SegmentMotionGMM
+/// Demonstrates the gaussian mixture algorithm of background subtraction
+class SegmentMotionGMM : public ISegmentMotion
 {
 public:
 
     ///@brief Launch demostration
-    void SegmentMotionGMM::run();
+    void Run();
 
 private:
     ///@brief Create trackbars
@@ -43,3 +48,14 @@ private:
     const cv::Ptr<cv::BackgroundSubtractorMOG2> m_algorithmPtr =
                                                 cv::createBackgroundSubtractorMOG2();
 };
+
+namespace
+{
+    ISegmentMotion* CreateSegmentMotionGMM()
+    {
+        return new SegmentMotionGMM;
+    }
+
+    const bool gmmRegistered =
+        SegmentMotionFactory::Instance().RegisterAlgorithm("GMM", CreateSegmentMotionGMM);
+}

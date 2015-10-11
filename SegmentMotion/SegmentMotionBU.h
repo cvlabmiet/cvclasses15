@@ -6,17 +6,21 @@
 
 #pragma once
 
+#include "ISegmentMotion.h"
+#include "SegmentMotionFactory.h"
 #include "opencv2\videoio.hpp"
 #include "opencv2\core\mat.hpp"
 #include "opencv2\imgproc.hpp"
 #include "opencv2\highgui.hpp"
 
-
-class SegmentMotionBU
+///@class SegmentMotionBU
+/// Demonstrates the algorithm of simplest background subtraction with
+/// background updating per every frame
+class SegmentMotionBU : public ISegmentMotion
 {
 public:
     ///@brief Launch demostration
-    void SegmentMotionBU::run();
+    void Run();
 
 private:
     ///@brief Apply algorithm
@@ -47,3 +51,14 @@ private:
     cv::Mat m_currentFrame;     ///< current image from camera
     cv::Mat m_foreground;       ///< binary image with moving objects
 };
+
+namespace
+{
+    ISegmentMotion* CreateSegmentMotionBU()
+    {
+        return new SegmentMotionBU;
+    }
+
+    const bool buRegistered =
+        SegmentMotionFactory::Instance().RegisterAlgorithm("BU", CreateSegmentMotionBU);
+}
