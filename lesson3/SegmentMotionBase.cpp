@@ -4,12 +4,15 @@
 ///@Date: 12 October 2015
 
 #include "SegmentMotionBase.h"
+
+#include <iostream>
+
+#include "opencv2\videoio.hpp"
+#include "opencv2\highgui.hpp"
+
 #include "SegmentMotionDiff.h"
 #include "SegmentMotionBU.h"
 #include "SegmentMotionGMM.h"
-#include "opencv2\videoio.hpp"
-#include "opencv2\highgui.hpp"
-#include <iostream>
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionBase::Run()
@@ -18,25 +21,21 @@ void SegmentMotionBase::Run()
 
     if (capture.isOpened())
     {
-        createGUI();
-
-        while (true)
-        {
-            capture >> m_currentFrame;
-
-            apply(m_currentFrame, m_foreground);
-            cv::imshow(this->GetName(), m_foreground);
-
-            if (cv::waitKey(1) >= 0)
-            {
-                break;
-            }
-        }
-    }
-    else
-    {
         std::cerr << "Can not open the camera !" << std::endl;
         exit(-1);
+    }
+
+    createGUI();
+
+    while (true)
+    {
+        m_foreground = process(capture);
+        cv::imshow(GetName(), m_foreground);
+
+        if (cv::waitKey(1) >= 0)
+        {
+            break;
+        }
     }
 }
 
@@ -45,15 +44,15 @@ SegmentMotionBase* SegmentMotionBase::CreateAlgorithm(std::string& algorithmName
 {
     if (algorithmName == "Diff")
     {
-        return new SegmentMotionDiff;
+        return new SegmentMotionDiff();
     }
     else if (algorithmName == "BU")
     {
-        return new SegmentMotionBU;
+        return new SegmentMotionBU();
     }
     else if (algorithmName == "GMM")
     {
-        return new SegmentMotionGMM;
+        return new SegmentMotionGMM();
     }
     else
     {

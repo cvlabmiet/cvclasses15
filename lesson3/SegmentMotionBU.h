@@ -7,10 +7,8 @@
 #pragma once
 
 #include "SegmentMotionBase.h"
-#include "opencv2\videoio.hpp"
+
 #include "opencv2\core\mat.hpp"
-#include "opencv2\imgproc.hpp"
-#include "opencv2\highgui.hpp"
 
 ///@class SegmentMotionBU
 /// Demonstrates the algorithm of simplest background subtraction with
@@ -18,16 +16,24 @@
 class SegmentMotionBU : public SegmentMotionBase
 {
 public:
+    ///@brief ctor
+    SegmentMotionBU()
+        : m_prevBackgroundUpdated(false)
+    {
+    }
 
-    ///@brief Get the name of algorithm
-    std::string GetName() const override;
+    ///@see SegmentMotionBase::GetName
+    virtual std::string GetName() const override
+    {
+        return "SegmentMotionBU";
+    }
 
-private:
-    ///@brief Apply algorithm
-    void apply(cv::Mat& src, cv::Mat& dst);
+protected:
+    ///@see SegmentMotionBase::process
+    virtual cv::Mat process(cv::VideoCapture& capture) override;
 
-    ///@brief Create trackbars
-    void createGUI();
+    ///@see SegmentMotionBase::createGUI
+    virtual void createGUI() override;
 
     ///@brief Update background
     void updateBackground(cv::Mat& currentFrame);
@@ -43,11 +49,9 @@ private:
     {
         int threshold;          ///< maximum of distance between background and current frame
         int alpha;              ///< velocity of learning
-    } m_params;
+    };
 
+    Params m_params;
     cv::Mat m_prevBackground;   ///< previous backround image
-
-    bool m_prevBackgroundUpdated = false;
-
-    const std::string m_algorithmName = "BU";
+    bool m_prevBackgroundUpdated;
 };

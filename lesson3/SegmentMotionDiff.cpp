@@ -5,43 +5,43 @@
 
 #include "SegmentMotionDiff.h"
 
-///////////////////////////////////////////////////////////////////////////////
-std::string SegmentMotionDiff::GetName() const
-{
-    return m_algorithmName;
-}
+#include "opencv2\videoio.hpp"
+#include "opencv2\imgproc.hpp"
+#include "opencv2\highgui.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionDiff::apply(cv::Mat& currentFrame, cv::Mat& foreground)
+cv::Mat SegmentMotionDiff::process(cv::VideoCapture& capture)
 {
+    cv::Mat currentFrame;
+
+    capture >> currentFrame;
+
     if (!m_backgroundUpdated)
     {
-        updateBackground(currentFrame);
+        cv::cvtColor(currentFrame, m_background, CV_RGB2GRAY);
         m_backgroundUpdated = true;
     }
     
     cv::Mat grayCurrentFrame;
     cv::cvtColor(currentFrame, grayCurrentFrame, CV_RGB2GRAY);
 
-    foreground = abs(m_background - grayCurrentFrame);
-    cv::threshold(foreground, foreground, m_threshold, 255, CV_THRESH_BINARY);
+    cv::Mat result = abs(m_background - grayCurrentFrame);
+    cv::threshold(result, result, m_threshold, 255, CV_THRESH_BINARY);
+
+    return result;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionDiff::createGUI()
 {
-    cv::namedWindow(m_algorithmName);
+    const std::string windowName = GetName();
+    cv::namedWindow(windowName);
 
     int initTrackbarValue = 10;
     setThresholdFromSlider(initTrackbarValue, &m_threshold);
-    cv::createTrackbar("Threshold", m_algorithmName, &initTrackbarValue, 255, setThresholdFromSlider, &m_threshold);
+    cv::createTrackbar("Threshold", windowName, &initTrackbarValue, 255, setThresholdFromSlider, &m_threshold);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionDiff::updateBackground(const cv::Mat& currentFrame)
-{
-    cv::cvtColor(currentFrame, m_background, CV_RGB2GRAY);
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionDiff::setThresholdFromSlider(int thresholdSlider, void* paramsPtr)

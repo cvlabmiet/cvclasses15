@@ -4,16 +4,19 @@
 ///@Date: 03 October 2015
 
 #include "SegmentMotionBU.h"
+
 #include <iostream>
 
+#include "opencv2\videoio.hpp"
+#include "opencv2\imgproc.hpp"
+#include "opencv2\highgui.hpp"
+
 ///////////////////////////////////////////////////////////////////////////////
-std::string SegmentMotionBU::GetName() const
+cv::Mat SegmentMotionBU::process(cv::VideoCapture& capture)
 {
-    return m_algorithmName;
-}
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBU::apply(cv::Mat& currentFrame, cv::Mat& foreground)
-{
+    cv::Mat currentFrame;
+    capture >> currentFrame;
+
     if (!m_prevBackgroundUpdated)
     {
         cv::cvtColor(currentFrame, m_prevBackground, CV_RGB2GRAY);
@@ -23,25 +26,27 @@ void SegmentMotionBU::apply(cv::Mat& currentFrame, cv::Mat& foreground)
     cvtColor(currentFrame, currentFrame, CV_RGB2GRAY);
     updateBackground(currentFrame);
 
-    cv::Mat absDif = abs(m_background - currentFrame.clone());
-    cv::threshold(absDif, absDif, m_params.threshold, 255, CV_THRESH_BINARY);
-    foreground = absDif;
+    cv::Mat result = abs(m_prevBackground - currentFrame.clone());
+    cv::threshold(result, result, m_params.threshold, 255, CV_THRESH_BINARY);
+
+    return result;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionBU::createGUI()
 {
-    cv::namedWindow(m_algorithmName);
+    const std::string windowName = GetName();
+    cv::namedWindow(windowName);
 
     int initSliderValue = 10;
 
     setAlphaFromSlider(initSliderValue, &m_params);
     setThresholdFromSlider(initSliderValue, &m_params);
 
-    cv::createTrackbar("Threshold", m_algorithmName, &initSliderValue, 255,
+    cv::createTrackbar("Threshold", windowName, &initSliderValue, 255,
         setThresholdFromSlider, &m_params);
 
-    cv::createTrackbar("Alpha", m_algorithmName, &initSliderValue, 100,
+    cv::createTrackbar("Alpha", windowName, &initSliderValue, 100,
         setAlphaFromSlider, &m_params);
 }
 
@@ -55,9 +60,8 @@ void SegmentMotionBU::updateBackground(cv::Mat& currentFrame)
     cv::Mat_<float> floatBackground = (1 - scaled_alpha) * floatPrevBackground +
         scaled_alpha * floatCurrentFrame;
 
-    floatBackground.convertTo(m_background, CV_8U);
+    floatBackground.convertTo(m_prevBackground, CV_8U);
 
-    m_background.copyTo(m_prevBackground);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

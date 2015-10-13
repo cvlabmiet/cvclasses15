@@ -7,23 +7,31 @@
 #pragma once
 
 #include "SegmentMotionBase.h"
-#include "opencv2\core\mat.hpp"
-#include "opencv2\video\background_segm.hpp"
 
+#include "opencv2\core\mat.hpp"
+
+#include "opencv2\video\background_segm.hpp"
 
 ///@class SegmentMotionGMM
 /// Demonstrates the gaussian mixture algorithm of background subtraction
 class SegmentMotionGMM : public SegmentMotionBase
 {
 public:
-    ///@brief Get the name of algorithm
-    std::string GetName() const  override;
+    ///@brief ctor
+    SegmentMotionGMM() {}
 
-private:
-    ///@brief Create trackbars
-    void createGUI();
+    ///@see SegmentMotionBase::GetName
+    virtual std::string GetName() const override
+    {
+        return "SegmentMotionGMM";
+    }
 
-    void apply(cv::Mat& currentFrame, cv::Mat& foreground);
+protected:
+    ///@see SegmentMotionBase::process
+    virtual cv::Mat process(cv::VideoCapture& capture) override;
+
+    ///@see SegmentMotionBase::createGUI
+    virtual void createGUI() override;
 
     ///@brief Set m_params.threshld from trackbar
     static void setLearningrateFromSlider(int learningRateSlider, void* paramsPtr);
@@ -40,11 +48,10 @@ private:
         int learningRate;       ///< velocity of learning
         int history;            ///< how many frames take into account in computing of background
         int varThreshold;       ///< maximum of distance between background and current frame
-    }m_params;
+    };
+
+    Params m_params;
 
     ///@brief Pointer to OpenCV algorithm of background subtraction
-    const cv::Ptr<cv::BackgroundSubtractorMOG2> m_algorithmPtr =
-                                                cv::createBackgroundSubtractorMOG2();
-
-    const std::string m_algorithmName = "GMM";
+    cv::Ptr<cv::BackgroundSubtractorMOG2> m_algorithmPtr;
 };

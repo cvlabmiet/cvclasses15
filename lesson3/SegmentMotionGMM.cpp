@@ -4,21 +4,34 @@
 ///@Author: Vitaliy Baldeev
 ///@Date: 04 October 2015
 
-#include <iostream>
 #include "SegmentMotionGMM.h"
-#include "opencv2\videoio\videoio.hpp"
+
+#include <iostream>
+
+#include <opencv2\videoio\videoio.hpp>
 #include "opencv2\highgui.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
-std::string SegmentMotionGMM::GetName() const
+cv::Mat SegmentMotionGMM::process(cv::VideoCapture& capture)
 {
-    return m_algorithmName;
+    if(!m_algorithmPtr)
+    {
+        m_algorithmPtr = cv::createBackgroundSubtractorMOG2();
+    }
+
+    cv::Mat currentFrame;
+    capture >> currentFrame;
+
+    cv::Mat result;
+    m_algorithmPtr->apply(currentFrame, result);
+    return result;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionGMM::createGUI()
 {
-    cv::namedWindow(m_algorithmName);
+    const std::string windowName = GetName();
+    cv::namedWindow(windowName);
 
     int initValue = 30;
 
@@ -26,15 +39,9 @@ void SegmentMotionGMM::createGUI()
     setHistoryFromSlider(initValue, &m_params);
     setVarThresholdFromSlider(initValue, &m_params);
 
-    cv::createTrackbar("Learning Rate", m_algorithmName, &initValue, 100, setLearningrateFromSlider, &m_params);
-    cv::createTrackbar("History", m_algorithmName, &initValue, 1000, setHistoryFromSlider, &m_params);
-    cv::createTrackbar("Var Threshold", m_algorithmName, &initValue, 255, setVarThresholdFromSlider, &m_params);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionGMM::apply(cv::Mat& currentFrame, cv::Mat& foreground)
-{
-    m_algorithmPtr->apply(currentFrame, foreground);
+    cv::createTrackbar("Learning Rate", windowName, &initValue, 100, setLearningrateFromSlider, &m_params);
+    cv::createTrackbar("History", windowName, &initValue, 1000, setHistoryFromSlider, &m_params);
+    cv::createTrackbar("Var Threshold", windowName, &initValue, 255, setVarThresholdFromSlider, &m_params);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -6,11 +6,10 @@
 #pragma once
 
 #include <iostream>
+
 #include "SegmentMotionBase.h"
-#include "opencv2\videoio.hpp"
+
 #include "opencv2\core\mat.hpp"
-#include "opencv2\imgproc.hpp"
-#include "opencv2\highgui.hpp"
 
 ///@class SegmentMotionDiff
 /// Demonstrates the algorithm of simplest background subtraction with
@@ -18,19 +17,23 @@
 class SegmentMotionDiff : public SegmentMotionBase
 {
 public:
+    SegmentMotionDiff()
+        : m_backgroundUpdated(false)
+    {
+    }
 
-    ///@brief Get the name of algorithm
-    std::string GetName() const override;
-private:
+    ///@see SegmentMotionBase::GetName
+    virtual std::string GetName() const override
+    {
+        return "SegmentMotionDiff";
+    }
 
-    ///@brief Apply algorithm
-    void apply(cv::Mat& currentFrame, cv::Mat& foreground);
+protected:
+    ///@see SegmentMotionBase::process
+    virtual cv::Mat process(cv::VideoCapture& capture) override;
 
-    ///@brief Create trackbar
-    void createGUI();
-
-    ///@brief Update background
-    void updateBackground(const cv::Mat& currentFrame);
+    ///@see SegmentMotionBase::createGUI
+    virtual void createGUI() override;
 
     ///@brief Set m_threshld from trackbar
     static void setThresholdFromSlider(int thresholdSlider, void* paramsPtr);
@@ -38,7 +41,6 @@ private:
     ///@brief threshold of segmentation
     int m_threshold;
 
-    bool m_backgroundUpdated = false;
-
-    const std::string m_algorithmName = "Diff";
+    bool m_backgroundUpdated;
+    cv::Mat m_background;
 };

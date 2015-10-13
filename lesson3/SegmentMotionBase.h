@@ -6,8 +6,13 @@
 #pragma once
 
 #include <string>
+
 #include "opencv2\core\mat.hpp"
-#include <memory>
+
+namespace cv 
+{
+    class VideoCapture;
+}
 
 ///@class ISegmentMotion
 /// Interface for SegmentMotion classes
@@ -15,29 +20,35 @@ class SegmentMotionBase
 {
 public:
     ///@brief Launch demonstration
-    virtual void Run();
+    void Run();
+
+        ///@brief Factory method
+    static SegmentMotionBase* CreateAlgorithm(std::string& algorithmName);
     
+public:
     ///@brief Destructor
     virtual ~SegmentMotionBase() {};
     
     ///@brief Get the name of algorithm 
-    virtual std::string GetName() const = 0;
+    virtual std::string GetName() const 
+    {
+        return "SMBase";
+    }
 
-    ///@brief Fabric method
-    static SegmentMotionBase* CreateAlgorithm(std::string& algorithmName);
 protected:
+    ///@brief protected constructor
+    SegmentMotionBase() {};
 
     ///@brief Create trackbars
     virtual void createGUI() {};
 
     ///@brief Apply the algorthm of background subtraction
-    virtual void apply(cv::Mat& currentFrame, cv::Mat& foreground) = 0;
-    
-    ///@brief Update current background frame
-    virtual void updateBackground(cv::Mat& currentFrame) {};
+    ///@return the result binary image
+    virtual cv::Mat process(cv::VideoCapture& capture) 
+    { 
+        return cv::Mat();
+    }
 
-protected:
-    cv::Mat m_background;       ///< background image
-    cv::Mat m_currentFrame;     ///< current image from camera
-    cv::Mat m_foreground;       ///< binary image with moving objects
+private:
+    cv::Mat m_foreground;  ///< binary image with moving objects
 };
