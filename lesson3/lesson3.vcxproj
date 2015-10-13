@@ -83,16 +83,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SegmentMotionBase.cpp" />
     <ClCompile Include="SegmentMotionBU.cpp" />
     <ClCompile Include="SegmentMotionDiff.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SegmentMotionGMM.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ISegmentMotion.h" />
+    <ClInclude Include="SegmentMotionBase.h" />
     <ClInclude Include="SegmentMotionBU.h" />
     <ClInclude Include="SegmentMotionDiff.h" />
-    <ClInclude Include="SegmentMotionFactory.h" />
     <ClInclude Include="SegmentMotionGMM.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

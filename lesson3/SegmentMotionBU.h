@@ -6,8 +6,7 @@
 
 #pragma once
 
-#include "ISegmentMotion.h"
-#include "SegmentMotionFactory.h"
+#include "SegmentMotionBase.h"
 #include "opencv2\videoio.hpp"
 #include "opencv2\core\mat.hpp"
 #include "opencv2\imgproc.hpp"
@@ -16,11 +15,12 @@
 ///@class SegmentMotionBU
 /// Demonstrates the algorithm of simplest background subtraction with
 /// background updating per every frame
-class SegmentMotionBU : public ISegmentMotion
+class SegmentMotionBU : public SegmentMotionBase
 {
 public:
-    ///@brief Launch demostration
-    void Run();
+
+    ///@brief Get the name of algorithm
+    std::string GetName();
 
 private:
     ///@brief Apply algorithm
@@ -45,20 +45,9 @@ private:
         int alpha;              ///< velocity of learning
     } m_params;
 
-
-    cv::Mat m_background;       ///< current background image
     cv::Mat m_prevBackground;   ///< previous backround image
-    cv::Mat m_currentFrame;     ///< current image from camera
-    cv::Mat m_foreground;       ///< binary image with moving objects
+
+    bool m_prevBackgroundUpdated = false;
+
+    const std::string m_algorithmName = "BU";
 };
-
-namespace
-{
-    ISegmentMotion* CreateSegmentMotionBU()
-    {
-        return new SegmentMotionBU;
-    }
-
-    const bool buRegistered =
-        SegmentMotionFactory::Instance().RegisterAlgorithm("BU", CreateSegmentMotionBU);
-}

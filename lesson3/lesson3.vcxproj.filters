@@ -27,6 +27,9 @@
     <ClCompile Include="SegmentMotionGMM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SegmentMotionBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SegmentMotionDiff.h">
@@ -38,10 +41,7 @@
     <ClInclude Include="SegmentMotionGMM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ISegmentMotion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SegmentMotionFactory.h">
+    <ClInclude Include="SegmentMotionBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,40 +7,19 @@
 #include <iostream>
 
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBU::Run()
+std::string SegmentMotionBU::GetName()
 {
-    cv::VideoCapture capture(0);
-    capture >> m_prevBackground;
-    cv::cvtColor(m_prevBackground, m_prevBackground, CV_RGB2GRAY);
-
-    if (capture.isOpened())
-    {
-        createGUI();
-
-        while (true)
-        {
-            capture >> m_currentFrame;
-            apply(m_currentFrame, m_foreground);
-
-            cv::imshow("SegmentMotionBU", m_foreground);
-
-            if (cv::waitKey(30) >= 0)
-            {
-                break;
-            }
-        }
-    }
-    else
-    {
-        std::cerr << "Can not open the camera !" << std::endl;
-        exit(-1);
-    }
+    return m_algorithmName;
 }
-
-
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionBU::apply(cv::Mat& currentFrame, cv::Mat& foreground)
 {
+    if (!m_prevBackgroundUpdated)
+    {
+        cv::cvtColor(currentFrame, m_prevBackground, CV_RGB2GRAY);
+        m_prevBackgroundUpdated = true;
+    }
+
     cvtColor(currentFrame, currentFrame, CV_RGB2GRAY);
     updateBackground(currentFrame);
 
@@ -52,18 +31,17 @@ void SegmentMotionBU::apply(cv::Mat& currentFrame, cv::Mat& foreground)
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionBU::createGUI()
 {
-    std::string winName = "SegmentMotionBU";
-    cv::namedWindow(winName);
+    cv::namedWindow(m_algorithmName);
 
     int initSliderValue = 10;
 
     setAlphaFromSlider(initSliderValue, &m_params);
     setThresholdFromSlider(initSliderValue, &m_params);
 
-    cv::createTrackbar("Threshold", winName, &initSliderValue, 255,
+    cv::createTrackbar("Threshold", m_algorithmName, &initSliderValue, 255,
         setThresholdFromSlider, &m_params);
 
-    cv::createTrackbar("Alpha", winName, &initSliderValue, 100,
+    cv::createTrackbar("Alpha", m_algorithmName, &initSliderValue, 100,
         setAlphaFromSlider, &m_params);
 }
 

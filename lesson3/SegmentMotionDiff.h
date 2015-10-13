@@ -6,8 +6,7 @@
 #pragma once
 
 #include <iostream>
-#include "ISegmentMotion.h"
-#include "SegmentMotionFactory.h"
+#include "SegmentMotionBase.h"
 #include "opencv2\videoio.hpp"
 #include "opencv2\core\mat.hpp"
 #include "opencv2\imgproc.hpp"
@@ -16,23 +15,22 @@
 ///@class SegmentMotionDiff
 /// Demonstrates the algorithm of simplest background subtraction with
 /// no background updating
-class SegmentMotionDiff : public ISegmentMotion
+class SegmentMotionDiff : public SegmentMotionBase
 {
 public:
 
-    ///@brief Launch demostration
-    void Run();
-
+    ///@brief Get the name of algorithm
+    std::string GetName();
 private:
 
     ///@brief Apply algorithm
-    void apply(const cv::Mat& currentFrame, cv::Mat& foreground);
+    void apply(cv::Mat& currentFrame, cv::Mat& foreground);
 
     ///@brief Create trackbar
     void createGUI();
 
     ///@brief Update background
-    void getBackground(cv::VideoCapture& capture);
+    void updateBackground(const cv::Mat& currentFrame);
 
     ///@brief Set m_threshld from trackbar
     static void setThresholdFromSlider(int thresholdSlider, void* paramsPtr);
@@ -40,19 +38,7 @@ private:
     ///@brief threshold of segmentation
     int m_threshold;
 
-    cv::Mat m_background;       ///< background image
-    cv::Mat m_currentFrame;     ///< current image from camera
-    cv::Mat m_foreground;       ///< binary image with moving objects
+    bool m_backgroundUpdated = false;
+
+    const std::string m_algorithmName = "Diff";
 };
-
-namespace
-{
-    ///@brief Create the instance of SegmentMotionDiff
-    ISegmentMotion* CreateSegmentMotionDiff()
-    {
-        return new SegmentMotionDiff;
-    }
-
-    const bool diffRegistered =
-        SegmentMotionFactory::Instance().RegisterAlgorithm("Diff", CreateSegmentMotionDiff);  ///< registration in SegmentMotionFactory
-}

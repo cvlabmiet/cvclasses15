@@ -21,8 +21,7 @@ int main()
     std::string algorithmName;
     std::cin >> algorithmName;
 
-    std::unique_ptr<ISegmentMotion>
-        ptr(SegmentMotionFactory::Instance().CreateAlgorithm(algorithmName));
+    std::unique_ptr<SegmentMotionBase> ptr(SegmentMotionBase::CreateAlgorithm(algorithmName));
 
     if (ptr)
     {
@@ -30,7 +29,8 @@ int main()
     }
     else
     {
-        std::cout << algorithmName<< " algorithm is not created!" << std::endl;
+        std::cerr << "Algorithm not chosen !" << std::endl;
     }
+
     return 0;
 }

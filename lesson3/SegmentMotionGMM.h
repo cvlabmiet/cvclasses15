@@ -6,23 +6,24 @@
 
 #pragma once
 
-#include "SegmentMotionFactory.h"
+#include "SegmentMotionBase.h"
 #include "opencv2\core\mat.hpp"
 #include "opencv2\video\background_segm.hpp"
 
 
 ///@class SegmentMotionGMM
 /// Demonstrates the gaussian mixture algorithm of background subtraction
-class SegmentMotionGMM : public ISegmentMotion
+class SegmentMotionGMM : public SegmentMotionBase
 {
 public:
-
-    ///@brief Launch demostration
-    void Run();
+    ///@brief Get the name of algorithm
+    std::string GetName();
 
 private:
     ///@brief Create trackbars
     void createGUI();
+
+    void apply(cv::Mat& currentFrame, cv::Mat& foreground);
 
     ///@brief Set m_params.threshld from trackbar
     static void setLearningrateFromSlider(int learningRateSlider, void* paramsPtr);
@@ -32,9 +33,6 @@ private:
 
     ///@brief Set m_params.varThreshold from trackbar
     static void setVarThresholdFromSlider(int varThresholdSlider, void* paramsPtr);
-
-    cv::Mat m_currentFrame;     ///< current image from camera
-    cv::Mat m_foreground;       ///< binary image with moving objects
 
     ///@brief structure of parameters with single object - m_params
     struct Params
@@ -47,15 +45,6 @@ private:
     ///@brief Pointer to OpenCV algorithm of background subtraction
     const cv::Ptr<cv::BackgroundSubtractorMOG2> m_algorithmPtr =
                                                 cv::createBackgroundSubtractorMOG2();
+
+    const std::string m_algorithmName = "GMM";
 };
-
-namespace
-{
-    ISegmentMotion* CreateSegmentMotionGMM()
-    {
-        return new SegmentMotionGMM;
-    }
-
-    const bool gmmRegistered =
-        SegmentMotionFactory::Instance().RegisterAlgorithm("GMM", CreateSegmentMotionGMM);
-}

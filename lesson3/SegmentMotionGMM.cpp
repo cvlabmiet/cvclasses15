@@ -10,40 +10,14 @@
 #include "opencv2\highgui.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionGMM::Run()
+std::string SegmentMotionGMM::GetName()
 {
-    cv::VideoCapture capture(0);
-
-    createGUI();
-
-    if (capture.isOpened())
-    {
-        while (true)
-        {
-            capture >> m_currentFrame;
-            m_algorithmPtr->apply(m_currentFrame, m_foreground, m_params.learningRate * 0.01);
-
-            cv::imshow("SegmentMotionGMM", m_foreground);
-
-            if (cv::waitKey(30) >= 0)
-            {
-                break;
-            }
-        }
-    }
-    else
-    {
-        std::cerr << " Can not open the camera !" << std::endl;
-        exit(-1);
-    }
+    return m_algorithmName;
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionGMM::createGUI()
 {
-    std::string winName = "SegmentMotionGMM";
-
-    cv::namedWindow(winName);
+    cv::namedWindow(m_algorithmName);
 
     int initValue = 30;
 
@@ -51,9 +25,15 @@ void SegmentMotionGMM::createGUI()
     setHistoryFromSlider(initValue, &m_params);
     setVarThresholdFromSlider(initValue, &m_params);
 
-    cv::createTrackbar("Learning Rate", winName, &initValue, 100, setLearningrateFromSlider, &m_params);
-    cv::createTrackbar("History", winName, &initValue, 1000, setHistoryFromSlider, &m_params);
-    cv::createTrackbar("Var Threshold", winName, &initValue, 255, setVarThresholdFromSlider, &m_params);
+    cv::createTrackbar("Learning Rate", m_algorithmName, &initValue, 100, setLearningrateFromSlider, &m_params);
+    cv::createTrackbar("History", m_algorithmName, &initValue, 1000, setHistoryFromSlider, &m_params);
+    cv::createTrackbar("Var Threshold", m_algorithmName, &initValue, 255, setVarThresholdFromSlider, &m_params);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+void SegmentMotionGMM::apply(cv::Mat& currentFrame, cv::Mat& foreground)
+{
+    m_algorithmPtr->apply(currentFrame, foreground);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
