@@ -21,10 +21,10 @@ public:
     virtual ~SegmentMotionBase() {};
     
     ///@brief Get the name of algorithm 
-    virtual std::string GetName() = 0;
+    virtual std::string GetName() const = 0;
 
     ///@brief Fabric method
-    static SegmentMotionBase* CreateAlgorithm(std::string algorithmName);
+    static SegmentMotionBase* CreateAlgorithm(std::string& algorithmName);
 protected:
 
     ///@brief Create trackbars

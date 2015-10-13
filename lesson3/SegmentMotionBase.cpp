@@ -41,7 +41,7 @@ void SegmentMotionBase::Run()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-SegmentMotionBase* SegmentMotionBase::CreateAlgorithm(std::string algorithmName)
+SegmentMotionBase* SegmentMotionBase::CreateAlgorithm(std::string& algorithmName)
 {
     if (algorithmName == "Diff")
     {

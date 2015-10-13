@@ -6,7 +6,7 @@
 #include "SegmentMotionDiff.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-std::string SegmentMotionDiff::GetName()
+std::string SegmentMotionDiff::GetName() const
 {
     return m_algorithmName;
 }

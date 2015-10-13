@@ -17,7 +17,7 @@ class SegmentMotionGMM : public SegmentMotionBase
 {
 public:
     ///@brief Get the name of algorithm
-    std::string GetName();
+    std::string GetName() const  override;
 
 private:
     ///@brief Create trackbars

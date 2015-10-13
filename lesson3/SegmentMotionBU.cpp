@@ -7,7 +7,7 @@
 #include <iostream>
 
 ///////////////////////////////////////////////////////////////////////////////
-std::string SegmentMotionBU::GetName()
+std::string SegmentMotionBU::GetName() const
 {
     return m_algorithmName;
 }
