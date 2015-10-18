@@ -33,11 +33,9 @@ void SegmentMotionGMM::createGUI()
     const std::string windowName = GetName();
     cv::namedWindow(windowName);
 
-    int initValue = 30;
-
-    m_params.learningRate = initValue;
-    m_params.history = initValue;
-    m_params.varThreshold = initValue;
+    m_params.learningRate = 30;
+    m_params.history = 30;
+    m_params.varThreshold = 30;
 
     cv::createTrackbar("Learning Rate", windowName, &m_params.learningRate, 100);
     cv::createTrackbar("History", windowName, &m_params.history, 1000);
