@@ -38,12 +38,6 @@ protected:
     ///@brief Update background
     void updateBackground(cv::Mat& currentFrame);
 
-    ///@brief Set m_params.threshold from trackbar
-    static void setThresholdFromSlider(int thresholdSlider, void* paramsPtr);
-
-    ///@brief Set m_params.alpha from trackbar
-    static void setAlphaFromSlider(int alphaSlider, void* paramsPtr);
-
     ///@brief structure of parameters with single object - m_params
     struct Params
     {

@@ -37,15 +37,6 @@ void SegmentMotionDiff::createGUI()
     const std::string windowName = GetName();
     cv::namedWindow(windowName);
 
-    int initTrackbarValue = 10;
-    setThresholdFromSlider(initTrackbarValue, &m_threshold);
-    cv::createTrackbar("Threshold", windowName, &initTrackbarValue, 255, setThresholdFromSlider, &m_threshold);
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionDiff::setThresholdFromSlider(int thresholdSlider, void* paramsPtr)
-{
-    int* data = static_cast<int*>(paramsPtr);
-    *data = thresholdSlider;
+    m_threshold = 10;
+    cv::createTrackbar("Threshold", windowName, &m_threshold, 255);
 }

@@ -35,32 +35,11 @@ void SegmentMotionGMM::createGUI()
 
     int initValue = 30;
 
-    setLearningrateFromSlider(initValue, &m_params);
-    setHistoryFromSlider(initValue, &m_params);
-    setVarThresholdFromSlider(initValue, &m_params);
+    m_params.learningRate = initValue;
+    m_params.history = initValue;
+    m_params.varThreshold = initValue;
 
-    cv::createTrackbar("Learning Rate", windowName, &initValue, 100, setLearningrateFromSlider, &m_params);
-    cv::createTrackbar("History", windowName, &initValue, 1000, setHistoryFromSlider, &m_params);
-    cv::createTrackbar("Var Threshold", windowName, &initValue, 255, setVarThresholdFromSlider, &m_params);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionGMM::setLearningrateFromSlider(int learningRateSlider, void* paramsPtr)
-{
-  Params* data = static_cast<Params*>(paramsPtr);
-  data->learningRate = learningRateSlider;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionGMM::setHistoryFromSlider(int historySlider, void* paramsPtr)
-{
-    Params* data = static_cast<Params*>(paramsPtr);
-    data->history = historySlider;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionGMM::setVarThresholdFromSlider(int varThesholdSlider, void* paramsPtr)
-{
-    Params* data = static_cast<Params*>(paramsPtr);
-    data->varThreshold = varThesholdSlider;
+    cv::createTrackbar("Learning Rate", windowName, &m_params.learningRate, 100);
+    cv::createTrackbar("History", windowName, &m_params.history, 1000);
+    cv::createTrackbar("Var Threshold", windowName, &m_params.varThreshold, 255);
 }

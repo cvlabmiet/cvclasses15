@@ -35,9 +35,6 @@ protected:
     ///@see SegmentMotionBase::createGUI
     virtual void createGUI() override;
 
-    ///@brief Set m_threshld from trackbar
-    static void setThresholdFromSlider(int thresholdSlider, void* paramsPtr);
-
     ///@brief threshold of segmentation
     int m_threshold;
 

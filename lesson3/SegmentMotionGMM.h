@@ -33,15 +33,6 @@ protected:
     ///@see SegmentMotionBase::createGUI
     virtual void createGUI() override;
 
-    ///@brief Set m_params.threshld from trackbar
-    static void setLearningrateFromSlider(int learningRateSlider, void* paramsPtr);
-
-    ///@brief Set m_params.history from trackbar
-    static void setHistoryFromSlider(int historySlider, void* paramsPtr);
-
-    ///@brief Set m_params.varThreshold from trackbar
-    static void setVarThresholdFromSlider(int varThresholdSlider, void* paramsPtr);
-
     ///@brief structure of parameters with single object - m_params
     struct Params
     {

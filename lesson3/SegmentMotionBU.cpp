@@ -38,16 +38,11 @@ void SegmentMotionBU::createGUI()
     const std::string windowName = GetName();
     cv::namedWindow(windowName);
 
-    int initSliderValue = 10;
+    m_params.alpha = 10;
+    m_params.threshold = 10;
 
-    setAlphaFromSlider(initSliderValue, &m_params);
-    setThresholdFromSlider(initSliderValue, &m_params);
-
-    cv::createTrackbar("Threshold", windowName, &initSliderValue, 255,
-        setThresholdFromSlider, &m_params);
-
-    cv::createTrackbar("Alpha", windowName, &initSliderValue, 100,
-        setAlphaFromSlider, &m_params);
+    cv::createTrackbar("Threshold", windowName, &m_params.threshold, 255);
+    cv::createTrackbar("Alpha", windowName, &m_params.alpha, 100);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -61,19 +56,4 @@ void SegmentMotionBU::updateBackground(cv::Mat& currentFrame)
         scaled_alpha * floatCurrentFrame;
 
     floatBackground.convertTo(m_prevBackground, CV_8U);
-
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBU::setThresholdFromSlider(int thresholdSlider, void* changeableDataPtr)
-{
-    Params* data = static_cast<Params*>(changeableDataPtr);
-    data->threshold = thresholdSlider;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBU::setAlphaFromSlider(int alphaSlider, void* changeableDataPtr)
-{
-    Params* data = static_cast<Params*>(changeableDataPtr);
-    data->alpha = alphaSlider;
 }
