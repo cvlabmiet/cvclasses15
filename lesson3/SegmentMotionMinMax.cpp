@@ -57,7 +57,7 @@ cv::Mat SegmentMotionMinMax::process(cv::VideoCapture& capture)
 
             for (pos = m_frameBuffer.begin(); pos != m_frameBuffer.end(); pos++)
             {
-                float val = static_cast<float>((*pos).at<uchar>(i, j));
+                const float val = static_cast<float>((*pos).at<uchar>(i, j));
 
                 // Calculate max
                 if (val > m_maxMat(i, j))
@@ -85,7 +85,8 @@ cv::Mat SegmentMotionMinMax::process(cv::VideoCapture& capture)
     }
 
     // Calculate median of D
-    std::vector<float> vecD(m_Dmat.rows * m_Dmat.cols);
+    const int vSize = m_Dmat.rows * m_Dmat.cols;
+    std::vector<float> vecD(vSize);
     for (int i = 0; i < m_Dmat.rows; i++)
     {
         for (int j = 0; j < m_Dmat.cols; j++)
@@ -95,7 +96,6 @@ cv::Mat SegmentMotionMinMax::process(cv::VideoCapture& capture)
     }
     std::sort(vecD.begin(), vecD.end());
     float median;
-    int vSize = vecD.size();
     if (vSize % 2 == 0)
     {
         median = (vecD[vSize / 2 - 1] + vecD[vSize / 2]) / 2;
@@ -137,6 +137,6 @@ void SegmentMotionMinMax::createGUI()
     m_params.historySize = 10;
     m_params.tau = 5;
 
-    cv::createTrackbar("History", windowName, &m_params.historySize, 20);
+    cv::createTrackbar("History", windowName, reinterpret_cast<int*>(&m_params.historySize), 20);
     cv::createTrackbar("Tau * 100", windowName, &m_params.tau, 20);
 }

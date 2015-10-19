@@ -34,7 +34,7 @@ protected:
     ///@ brief parameters of algorythm
     struct Params
     {
-        int historySize;    ///@ size of history
+        size_t historySize;    ///@ size of history
         int tau;            ///@ value of parameter tau
     };
 
