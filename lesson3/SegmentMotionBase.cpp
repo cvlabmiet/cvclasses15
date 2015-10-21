@@ -13,13 +13,14 @@
 #include "SegmentMotionDiff.h"
 #include "SegmentMotionBU.h"
 #include "SegmentMotionGMM.h"
+#include "SegmentMotionMinMax.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionBase::Run()
 {
     cv::VideoCapture capture(0);
 
-    if (capture.isOpened())
+    if (!capture.isOpened())
     {
         std::cerr << "Can not open the camera !" << std::endl;
         exit(-1);
@@ -53,6 +54,10 @@ SegmentMotionBase* SegmentMotionBase::CreateAlgorithm(std::string& algorithmName
     else if (algorithmName == "GMM")
     {
         return new SegmentMotionGMM();
+    }
+    else if (algorithmName == "MM")
+    {
+        return new SegmentMotionMinMax();
     }
     else
     {

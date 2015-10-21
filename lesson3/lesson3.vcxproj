@@ -88,12 +88,14 @@
     <ClCompile Include="SegmentMotionDiff.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SegmentMotionGMM.cpp" />
+    <ClCompile Include="SegmentMotionMinMax.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SegmentMotionBase.h" />
     <ClInclude Include="SegmentMotionBU.h" />
     <ClInclude Include="SegmentMotionDiff.h" />
     <ClInclude Include="SegmentMotionGMM.h" />
+    <ClInclude Include="SegmentMotionMinMax.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

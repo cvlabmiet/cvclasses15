@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <memory>
+#include <list>
 
 #include "SegmentMotionDiff.h"
 #include "SegmentMotionBU.h"
@@ -16,7 +17,8 @@ int main()
     std::cout << "Select the algorithm: \n"
               << "Diff  - Basic difference \n"
               << "BU    - Basic difference with background updating \n"
-              << "GMM   - Gaussian mixture model algorithm \n";
+              << "GMM   - Gaussian mixture model algorithm \n"
+              << "MM    - MinMax algoruthm \n";
 
     std::string algorithmName;
     std::cin >> algorithmName;
