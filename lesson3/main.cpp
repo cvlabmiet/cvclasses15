@@ -16,11 +16,11 @@
 int main()
 {
     std::cout << "Select the algorithm: \n"
-              << "Diff  - Basic difference \n"
-              << "BU    - Basic difference with background updating \n"
-              << "GMM   - Gaussian mixture model algorithm \n"
-              << "MM    - MinMax algoruthm \n"
-			  << "1G    - One Gaussian \n";
+        << "Diff  - Basic difference \n"
+        << "BU    - Basic difference with background updating \n"
+        << "GMM   - Gaussian mixture model algorithm \n"
+        << "MM    - MinMax algoruthm \n"
+        << "1G    - One Gaussian \n";
 
     std::string algorithmName;
     std::cin >> algorithmName;
