@@ -16,7 +16,7 @@
 #include "SegmentMotionMinMax.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-void SegmentMotionBase::Show()
+void SegmentMotionBase::Run()
 {
     cv::VideoCapture capture(0);
 
