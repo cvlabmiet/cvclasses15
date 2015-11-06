@@ -8,13 +8,14 @@
 
 void FeatureDetectorDemo::Run(std::string algorithmName)
 {
-    cv::VideoCapture capture(0);
     std::unique_ptr<FeatureDetectorBase> pDetector(FeatureDetectorBase::CreateAlgorithm(algorithmName));
     if (!pDetector)
     {
         std::cout << "Invalid name of detector.\n";
         return;
     }
+
+	cv::VideoCapture capture(0);
     cv::namedWindow("Video capture");
     cv::Mat frame;
 

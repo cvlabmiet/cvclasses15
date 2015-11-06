@@ -33,6 +33,11 @@ void FeatureDetectorFAST::Run(const cv::Mat &img)
 void FeatureDetectorFAST::findFeatures(int pos, void *data)
 {
     const Params& userData = *static_cast<Params*>(data);
+	if (userData.seriesLength == 0)
+	{
+		// skip incorrect value
+		return;
+	}
 
     cv::Mat gray, show;
     cv::cvtColor(userData.srcImage, gray, CV_BGR2GRAY);
@@ -67,7 +72,7 @@ void FeatureDetectorFAST::findFeatures(int pos, void *data)
             neighbours[15] = static_cast<int>(gray.at<uchar>(i - 3, j - 1));
 
             // Duplicate first (userData.seriesLength - 1) pixels from the begining of vector because of easier computation
-            for (int n = 16; n < neighbours.size(); n++)
+            for (size_t n = 16; n < neighbours.size(); n++)
             {
                 neighbours[n] = neighbours[n - 16];
             }

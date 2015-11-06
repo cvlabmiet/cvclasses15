@@ -69,12 +69,12 @@ void FeatureDetectorLoG::findFeatures(int pos, void *data)
 
 
     // Find feature feature points
-    float sqrt2 = sqrt(2);
+    float sqrt2 = sqrtf(2);
     for (int n = 1; n < userData.layersNum - 1; n++)
     {
-        for (size_t i = 1; i < imgRows - 1; i++)
+        for (int i = 1; i < imgRows - 1; i++)
         {
-            for (size_t j = 1; j < imgCols - 1; j++)
+            for (int j = 1; j < imgCols - 1; j++)
             {
                 if (LoG[n*imgRows*imgCols + i*imgCols + j] > userData.threshold && isLocalMax(LoG, imgRows, imgCols, n, i, j))
                 {
