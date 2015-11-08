@@ -15,7 +15,7 @@ void FeatureDetectorDemo::Run(std::string algorithmName)
         return;
     }
 
-	cv::VideoCapture capture(0);
+    cv::VideoCapture capture(0);
     cv::namedWindow("Video capture");
     cv::Mat frame;
 
