@@ -7,13 +7,14 @@
 
 #include <iostream>
 
-#include "opencv2\videoio.hpp"
-#include "opencv2\highgui.hpp"
+#include "opencv2\video\video.hpp"
+#include "opencv2\highgui\highgui.hpp"
 
 #include "SegmentMotionDiff.h"
 #include "SegmentMotionBU.h"
 #include "SegmentMotionGMM.h"
 #include "SegmentMotionMinMax.h"
+#include "SegmentMotion1G.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 void SegmentMotionBase::Run()
@@ -59,6 +60,10 @@ SegmentMotionBase* SegmentMotionBase::CreateAlgorithm(std::string& algorithmName
     {
         return new SegmentMotionMinMax();
     }
+	else if (algorithmName == "1G")
+	{
+		return new SegmentMotion1G();
+	}
     else
     {
         return nullptr;

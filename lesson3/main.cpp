@@ -11,14 +11,16 @@
 #include "SegmentMotionDiff.h"
 #include "SegmentMotionBU.h"
 #include "SegmentMotionGMM.h"
+#include "SegmentMotion1G.h"
 
 int main()
 {
     std::cout << "Select the algorithm: \n"
-              << "Diff  - Basic difference \n"
-              << "BU    - Basic difference with background updating \n"
-              << "GMM   - Gaussian mixture model algorithm \n"
-              << "MM    - MinMax algoruthm \n";
+        << "Diff  - Basic difference \n"
+        << "BU    - Basic difference with background updating \n"
+        << "GMM   - Gaussian mixture model algorithm \n"
+        << "MM    - MinMax algoruthm \n"
+        << "1G    - One Gaussian \n";
 
     std::string algorithmName;
     std::cin >> algorithmName;
